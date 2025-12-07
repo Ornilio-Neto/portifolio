@@ -1,0 +1,303 @@
+/* --- Variáveis Globais de Estilo --- */
+:root {
+    --dark-bg: #1a1a1a;
+    --card-bg: #2a2a2a;
+    --border-color: #404040;
+    --light-text: #f0f0f0;
+    --dark-text: #1a1a1a;
+    --accent-color: #64ffda;
+    --shadow-color: rgba(100, 255, 218, 0.1);
+    --font-mono: 'Roboto Mono', monospace;
+}
+
+/* --- Estilos Gerais do Corpo --- */
+.site-body {
+    background-color: var(--dark-bg);
+    color: var(--light-text);
+    font-family: var(--font-mono);
+    overflow-x: hidden; /* Previne scroll horizontal */
+    margin: 0;
+    padding: 0;
+}
+
+#particles-js {
+    position: fixed; /* Fixo para não rolar com a página */
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+/* --- Navegação Principal --- */
+.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px 0;
+    background-color: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 10;
+}
+
+.main-nav a {
+    color: var(--light-text);
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.main-nav a:hover {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+/* --- Container Principal do Conteúdo --- */
+.site-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 100px auto 40px; /* Espaço para a nav-bar fixa */
+    padding: 0 20px;
+}
+
+/* --- Estilos da Landing Page --- */
+.landing-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 140px); /* Leva em conta a margem do container */
+    text-align: center;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+    border: 3px solid var(--light-text);
+}
+
+.landing-header h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin: 0.5rem 0;
+    font-weight: 700;
+}
+
+.landing-header p {
+    font-size: 1.2rem;
+    color: #a0a0a0;
+    margin-top: 0;
+}
+
+.social-links {
+    margin-top: 2rem;
+}
+
+.social-links a {
+    color: var(--light-text);
+    font-size: 1.8rem;
+    margin: 0 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+/* --- Grid de Projetos --- */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding-top: 2rem; /* Espaçamento do título */
+}
+
+.page-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 2rem;
+}
+
+.project-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px var(--shadow-color);
+}
+
+.project-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.project-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.project-info {
+    padding: 1rem 1.5rem;
+}
+
+.project-info h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+    color: var(--accent-color);
+}
+
+.project-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--light-text);
+}
+
+/* --- Detalhes do Projeto --- */
+.project-detail-container {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.project-detail-title {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.project-detail-image {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 5px;
+    margin: 0 auto 2rem;
+    display: block;
+}
+
+.project-detail-body p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.project-detail-link-container {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+/* --- Formulários --- */
+.form-container {
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: .5rem;
+    font-weight: 500;
+    color: var(--light-text);
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: .75rem;
+    font-size: 1rem;
+    font-family: var(--font-mono);
+    color: var(--light-text);
+    background-color: var(--dark-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    border-color: var(--accent-color);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem var(--shadow-color);
+}
+
+/* --- Botões --- */
+.btn {
+    display: inline-block;
+    font-weight: 500;
+    font-family: var(--font-mono);
+    text-align: center;
+    border: 1px solid var(--accent-color);
+    padding: .75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    color: var(--dark-text);
+    background-color: var(--accent-color);
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: transparent;
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+/* --- Mensagens Flash --- */
+.flash-messages {
+    position: fixed;
+    top: 80px; /* Abaixo da nav */
+    right: 20px;
+    z-index: 1000;
+    width: 300px;
+}
+
+.flash {
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border-radius: .25rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    font-family: var(--font-mono);
+}
+
+.flash.success {
+    color: var(--dark-text);
+    background-color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+}
+
+.flash.error {
+    color: var(--light-text);
+    background-color: #e57373;
+    border: 1px solid #e57373;
+}

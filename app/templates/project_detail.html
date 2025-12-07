@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg-white text-gray-800">
+
+    <!-- Seção 1: Cabeçalho do Projeto -->
+    <section class="py-20 px-4 text-center bg-gray-50">
+        <div class="container mx-auto">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">{{ project.title }}</h1>
+            {% if project.image_filename %}
+                <img src="{{ url_for('static', filename=project.image_filename) }}" alt="{{ project.title }}" class="w-full md:w-3/4 max-w-4xl mx-auto rounded-lg shadow-xl my-8">
+            {% endif %}
+            {% if project.detailed_description %}
+                <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-600">{{ project.detailed_description }}</p>
+            {% endif %}
+            {% if project.link %}
+                 <a href="{{ project.link }}" target="_blank" rel="noopener noreferrer" class="mt-8 inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition duration-300">Ver Projeto ao Vivo</a>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Seção 2: Bloco de Texto e Imagem 1 -->
+    {% if project.section2_title or project.section2_text %}
+    <section class="py-20 px-4 bg-white">
+        <div class="container mx-auto flex flex-wrap items-center {% if project.section2_image %}md:flex-row{% else %}flex-col text-center{% endif %}">
+            {% if project.section2_image %}
+            <div class="md:w-1/2 p-4">
+                <img src="{{ url_for('static', filename=project.section2_image) }}" alt="{{ project.section2_title or 'Imagem da Seção' }}" class="rounded-lg shadow-lg mx-auto">
+            </div>
+            <div class="md:w-1/2 p-4">
+            {% else %}
+            <div class="w-full p-4">
+            {% endif %}
+                <h2 class="text-3xl font-bold mb-4">{{ project.section2_title }}</h2>
+                <p class="text-gray-600 leading-relaxed">{{ project.section2_text | safe }}</p>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Seção 3: Grade de Funcionalidades -->
+    {% if features %}
+    <section class="py-20 px-4 bg-gray-50">
+        <div class="container mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">Funcionalidades Principais</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for feature in features %}
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-xl font-bold mb-2">{{ feature.title }}</h3>
+                    <p class="text-gray-600">{{ feature.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Seção 4: Bloco de Texto e Imagem 2 -->
+    {% if project.section3_title or project.section3_text %}
+    <section class="py-20 px-4 bg-white">
+        <div class="container mx-auto flex flex-wrap items-center {% if project.section3_image %}md:flex-row-reverse{% else %}flex-col text-center{% endif %}">
+            {% if project.section3_image %}
+            <div class="md:w-1/2 p-4">
+                <img src="{{ url_for('static', filename=project.section3_image) }}" alt="{{ project.section3_title or 'Imagem da Seção' }}" class="rounded-lg shadow-lg mx-auto">
+            </div>
+            <div class="md:w-1/2 p-4">
+            {% else %}
+            <div class="w-full p-4">
+            {% endif %}
+                <h2 class="text-3xl font-bold mb-4">{{ project.section3_title }}</h2>
+                <p class="text-gray-600 leading-relaxed">{{ project.section3_text | safe }}</p>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Seção 5: Acordeão -->
+    {% if accordion %}
+    <section class="py-20 px-4 bg-gray-50" x-data="{ open: 0 }">
+        <div class="container mx-auto max-w-3xl">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">Perguntas Frequentes</h2>
+            </div>
+            {% for item in accordion %}
+            <div class="border-b border-gray-200">
+                <button @click="open = open === {{ loop.index }} ? null : {{ loop.index }}" class="w-full text-left py-4 px-6 focus:outline-none">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-semibold">{{ item.title }}</h3>
+                        <span x-show="open !== {{ loop.index }}">+</span>
+                        <span x-show="open === {{ loop.index }}">-</span>
+                    </div>
+                </button>
+                <div x-show="open === {{ loop.index }}" x-collapse class="pb-4 px-6">
+                    <p class="text-gray-600">{{ item.content }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Seção 6: Barra de Estatísticas -->
+    {% if stats %}
+    <section class="py-20 bg-blue-600 text-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-{{ stats|length }} gap-8 text-center">
+                {% for stat in stats %}
+                <div>
+                    <p class="text-4xl md:text-5xl font-bold">{{ stat.value }}</p>
+                    <p class="text-blue-200 mt-2">{{ stat.label }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+</div>
+{% endblock %}

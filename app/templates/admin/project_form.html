@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% from "admin/_form_helpers.html" import render_field %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">{{ legend }}</h1>
+
+    <form method="POST" action="" enctype="multipart/form-data" novalidate class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        {{ form.hidden_tag() }}
+
+        {# --- SEÇÕES PRINCIPAIS --- #}
+        <fieldset class="mb-6 border-b pb-6">
+            <legend class="text-xl font-semibold mb-4 text-gray-700">Informações Principais (Card)</legend>
+            {{ render_field(form.title) }}
+            {{ render_field(form.description, class='h-24') }}
+            {{ render_field(form.image_file) }}
+            {{ render_field(form.link) }}
+        </fieldset>
+
+        <fieldset class="mb-6 border-b pb-6">
+            <legend class="text-xl font-semibold mb-4 text-gray-700">Conteúdo da Página de Detalhes</legend>
+            {{ render_field(form.detailed_description, class="h-32") }}
+            <hr class="my-6">
+            {{ render_field(form.section2_title) }}
+            {{ render_field(form.section2_text, class="h-32") }}
+            {{ render_field(form.section2_image) }}
+            <hr class="my-6">
+            {{ render_field(form.section3_title) }}
+            {{ render_field(form.section3_text, class="h-32") }}
+            {{ render_field(form.section3_image) }}
+        </fieldset>
+
+        {# --- SEÇÕES DINÂMICAS --- #}
+
+        <!-- Grade de Funcionalidades -->
+        <fieldset class="dynamic-section mb-6 border-b pb-6" data-prefix="features_grid">
+            <legend class="text-xl font-semibold mb-4 text-gray-700">{{ form.features_grid.label }}</legend>
+            <div class="dynamic-list space-y-4">
+                {% for subfield in form.features_grid %}
+                    <div class="dynamic-item border p-4 rounded-md bg-gray-50 space-y-4">
+                        {{ render_field(subfield.form.title) }}
+                        {{ render_field(subfield.form.description) }}
+                        <button type="button" class="remove-item-btn bg-red-500 text-white py-1 px-3 rounded hover:bg-red-700">Remover</button>
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="button" class="add-item-btn mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700">Adicionar Funcionalidade</button>
+        </fieldset>
+
+        <!-- Itens do Acordeão (FAQ) -->
+        <fieldset class="dynamic-section mb-6 border-b pb-6" data-prefix="accordion_items">
+            <legend class="text-xl font-semibold mb-4 text-gray-700">{{ form.accordion_items.label }}</legend>
+            <div class="dynamic-list space-y-4">
+                {% for subfield in form.accordion_items %}
+                    <div class="dynamic-item border p-4 rounded-md bg-gray-50 space-y-4">
+                        {{ render_field(subfield.form.title) }}
+                        {{ render_field(subfield.form.content) }}
+                        <button type="button" class="remove-item-btn bg-red-500 text-white py-1 px-3 rounded hover:bg-red-700">Remover</button>
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="button" class="add-item-btn mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700">Adicionar Item</button>
+        </fieldset>
+
+        <!-- Barra de Estatísticas -->
+        <fieldset class="dynamic-section mb-6" data-prefix="stats_bar">
+            <legend class="text-xl font-semibold mb-4 text-gray-700">{{ form.stats_bar.label }}</legend>
+            <div class="dynamic-list space-y-4">
+                {% for subfield in form.stats_bar %}
+                    <div class="dynamic-item border p-4 rounded-md bg-gray-50 space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            {{ render_field(subfield.form.value) }}
+                            {{ render_field(subfield.form.label) }}
+                        </div>
+                        <button type="button" class="remove-item-btn bg-red-500 text-white py-1 px-3 rounded hover:bg-red-700">Remover</button>
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="button" class="add-item-btn mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700">Adicionar Estatística</button>
+        </fieldset>
+        
+        {# --- BOTÕES DE AÇÃO --- #}
+        <div class="flex items-center justify-between mt-8 pt-6 border-t">
+            {{ form.submit(class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:shadow-outline") }}
+            <a href="{{ url_for('admin.dashboard') }}" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+{# --- MOLDES PARA JAVASCRIPT --- #}
+<template id="features_grid-template">
+    <div class="dynamic-item border p-4 rounded-md bg-gray-50 space-y-4">
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="features_grid-__prefix__-title">Título</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="features_grid-__prefix__-title" name="features_grid-__prefix__-title" type="text" placeholder="Título da Funcionalidade">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="features_grid-__prefix__-description">Descrição</label>
+            <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-24" id="features_grid-__prefix__-description" name="features_grid-__prefix__-description" placeholder="Descrição da Funcionalidade"></textarea>
+        </div>
+        <button type="button" class="remove-item-btn bg-red-500 text-white py-1 px-3 rounded hover:bg-red-700">Remover</button>
+    </div>
+</template>
+
+<template id="accordion_items-template">
+    <div class="dynamic-item border p-4 rounded-md bg-gray-50 space-y-4">
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="accordion_items-__prefix__-title">Título (Pergunta)</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="accordion_items-__prefix__-title" name="accordion_items-__prefix__-title" type="text" placeholder="Título (Pergunta)">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="accordion_items-__prefix__-content">Conteúdo (Resposta)</label>
+            <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-24" id="accordion_items-__prefix__-content" name="accordion_items-__prefix__-content" placeholder="Conteúdo (Resposta)"></textarea>
+        </div>
+        <button type="button" class="remove-item-btn bg-red-500 text-white py-1 px-3 rounded hover:bg-red-700">Remover</button>
+    </div>
+</template>
+
+<template id="stats_bar-template">
+    <div class="dynamic-item border p-4 rounded-md bg-gray-50 space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="stats_bar-__prefix__-value">Valor</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="stats_bar-__prefix__-value" name="stats_bar-__prefix__-value" type="text" placeholder="Valor (ex: 100%)">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="stats_bar-__prefix__-label">Rótulo</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="stats_bar-__prefix__-label" name="stats_bar-__prefix__-label" type="text" placeholder="Rótulo (ex: Sucesso)">
+            </div>
+        </div>
+        <button type="button" class="remove-item-btn bg-red-500 text-white py-1 px-3 rounded hover:bg-red-700">Remover</button>
+    </div>
+</template>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/dynamic_forms.js') }}"></script>
+{% endblock %}

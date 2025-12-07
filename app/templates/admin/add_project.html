@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="project-detail-container">
+    <a href="{{ url_for('main.portfolio') }}" class="back-link">&larr; Voltar para a lista de projetos</a>
+    <h1 class="project-detail-title">{{ project.title }}</h1>
+    
+    <img src="{{ url_for('static', filename=project.image_filename) }}" alt="{{ project.title }}" class="project-detail-image">
+    
+    <div class="project-detail-body">
+        {{ project.detailed_description | safe }}
+    </div>
+    
+    {% if project.link %}
+        <div class="project-detail-link-container">
+            <a href="{{ project.link }}" class="btn" target="_blank">Ver Projeto Online</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% macro render_field(field) %}
+    <div class="mb-4">
+        {% if field.label %}
+            {{ field.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+        {% endif %}
+
+        {# --- MANUSEIO DE ATRIBUTOS À PROVA DE FALHAS --- #}
+        
+        {# 1. Pega a classe customizada dos kwargs, se existir #}
+        {% set custom_class = '' %}
+        {% if 'class' in kwargs %}
+            {% set custom_class = kwargs['class'] %}
+        {% endif %}
+        
+        {# 2. Pega o placeholder dos kwargs, se existir #}
+        {% set placeholder_text = '' %}
+        {% if 'placeholder' in kwargs %}
+            {% set placeholder_text = kwargs['placeholder'] %}
+        {% endif %}
+
+        {# 3. Combina as classes #}
+        {% set base_class = 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' %}
+        {% set final_class = [base_class, custom_class] | join(' ') | trim %}
+
+        {# 4. Renderiza o campo apenas com os atributos seguros que preparamos #}
+        {{ field(class=final_class, placeholder=placeholder_text) }}
+
+        {% if field.description %}
+            <p class="text-gray-600 text-xs italic mt-2">{{ field.description }}</p>
+        {% endif %}
+
+        {% if field.errors %}
+            <ul class="text-red-500 text-xs italic mt-2">
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endmacro %}
