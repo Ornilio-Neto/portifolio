@@ -10,9 +10,10 @@
     <div class="project-grid">
         {% for project in projects %}
         <div class="project-card">
-            {# Apenas mostra a imagem se ela existir #}
+            {# Apenas mostra a imagem se um nome de arquivo existir #}
             {% if project.image_filename %}
-            <img src="{{ url_for('static', filename='uploads/' + project.image_filename) }}" alt="{{ project.title }}" class="project-image">
+            {# CORREÇÃO: Removido o 'uploads/' extra. O project.image_filename já contém o caminho correto. #}
+            <img src="{{ url_for('static', filename=project.image_filename) }}" alt="{{ project.title }}" class="project-image">
             {% else %}
             {# Opcional: mostrar uma imagem padrão se nenhuma for fornecida #}
             <img src="{{ url_for('static', filename='images/default_project_image.png') }}" alt="Imagem padrão" class="project-image">
