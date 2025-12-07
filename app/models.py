@@ -7,7 +7,8 @@ class Project(db.Model):
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
     link = db.Column(db.String(200))
-    image_filename = db.Column(db.String(120), nullable=False)
+    # A imagem agora é opcional
+    image_filename = db.Column(db.String(120), nullable=True)
     detailed_description = db.Column(db.Text)
     
     # Campos para conteúdo dinâmico (armazenados como JSON)
@@ -18,11 +19,11 @@ class Project(db.Model):
     # Campos para seções adicionais
     section2_title = db.Column(db.String(100))
     section2_text = db.Column(db.Text)
-    section2_image = db.Column(db.String(120))
+    section2_image = db.Column(db.String(120), nullable=True) # Também tornar opcional
 
     section3_title = db.Column(db.String(100))
     section3_text = db.Column(db.Text)
-    section3_image = db.Column(db.String(120))
+    section3_image = db.Column(db.String(120), nullable=True) # Também tornar opcional
 
     def __repr__(self):
         return f'<Project {self.title}>'
