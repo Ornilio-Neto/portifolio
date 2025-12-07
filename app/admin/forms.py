@@ -1,27 +1,30 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, TextAreaField, SubmitField, FormField, FieldList
+# Importar o Form simples do WTForms
+from wtforms import StringField, TextAreaField, SubmitField, FormField, FieldList, Form
 from wtforms.validators import DataRequired, Length, Optional
 
 # --- Mini-formulários para os itens das listas dinâmicas ---
-
-class FeatureForm(FlaskForm):
+# Alterado de FlaskForm para Form
+class FeatureForm(Form):
     """Sub-formulário para uma única funcionalidade."""
     title = StringField('Título da Funcionalidade', validators=[Optional(), Length(max=100)])
     description = TextAreaField('Descrição da Funcionalidade', validators=[Optional()])
 
-class AccordionItemForm(FlaskForm):
+# Alterado de FlaskForm para Form
+class AccordionItemForm(Form):
     """Sub-formulário para um único item de acordeão."""
     title = StringField('Título (Pergunta)', validators=[Optional(), Length(max=200)])
     content = TextAreaField('Conteúdo (Resposta)', validators=[Optional()])
 
-class StatForm(FlaskForm):
+# Alterado de FlaskForm para Form
+class StatForm(Form):
     """Sub-formulário para uma única estatística."""
     value = StringField('Valor', validators=[Optional(), Length(max=50)])
     label = StringField('Rótulo', validators=[Optional(), Length(max=100)])
 
 
-# --- Formulário Principal do Projeto ---
+# --- Formulário Principal do Projeto (Este continua como FlaskForm) ---
 
 class ProjectForm(FlaskForm):
     # --- Informações para o card do portfólio ---

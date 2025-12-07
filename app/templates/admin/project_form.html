@@ -35,6 +35,14 @@
         <!-- Grade de Funcionalidades -->
         <fieldset class="dynamic-section mb-6 border-b pb-6" data-prefix="features_grid">
             <legend class="text-xl font-semibold mb-4 text-gray-700">{{ form.features_grid.label }}</legend>
+            
+            {# Adicionado para exibir erros da lista #}
+            {% if form.features_grid.errors %}
+                <div class="form-errors text-red-500 text-sm mb-2">
+                    {% for error in form.features_grid.errors %}<span>{{ error }}</span>{% endfor %}
+                </div>
+            {% endif %}
+
             <div class="dynamic-list space-y-4">
                 {% for subfield in form.features_grid %}
                     <div class="dynamic-item border p-4 rounded-md bg-gray-50 space-y-4">
@@ -50,6 +58,14 @@
         <!-- Itens do Acordeão (FAQ) -->
         <fieldset class="dynamic-section mb-6 border-b pb-6" data-prefix="accordion_items">
             <legend class="text-xl font-semibold mb-4 text-gray-700">{{ form.accordion_items.label }}</legend>
+
+            {# Adicionado para exibir erros da lista #}
+            {% if form.accordion_items.errors %}
+                <div class="form-errors text-red-500 text-sm mb-2">
+                    {% for error in form.accordion_items.errors %}<span>{{ error }}</span>{% endfor %}
+                </div>
+            {% endif %}
+
             <div class="dynamic-list space-y-4">
                 {% for subfield in form.accordion_items %}
                     <div class="dynamic-item border p-4 rounded-md bg-gray-50 space-y-4">
@@ -65,6 +81,14 @@
         <!-- Barra de Estatísticas -->
         <fieldset class="dynamic-section mb-6" data-prefix="stats_bar">
             <legend class="text-xl font-semibold mb-4 text-gray-700">{{ form.stats_bar.label }}</legend>
+
+            {# Adicionado para exibir erros da lista #}
+            {% if form.stats_bar.errors %}
+                <div class="form-errors text-red-500 text-sm mb-2">
+                    {% for error in form.stats_bar.errors %}<span>{{ error }}</span>{% endfor %}
+                </div>
+            {% endif %}
+
             <div class="dynamic-list space-y-4">
                 {% for subfield in form.stats_bar %}
                     <div class="dynamic-item border p-4 rounded-md bg-gray-50 space-y-4">
